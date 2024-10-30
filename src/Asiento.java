@@ -1,4 +1,5 @@
 public abstract class Asiento {
+    private int numeroAsiento;
     protected double costoBase;
     private boolean disponible;
 
@@ -7,6 +8,13 @@ public abstract class Asiento {
         this.disponible = true;
     }
 
+    public int getNumeroAsiento() {
+        return numeroAsiento;
+    }
+
+    public void setNumeroAsiento(int numeroAsiento) {
+        this.numeroAsiento = numeroAsiento;
+    }
     public abstract double obtenerCosto();
 
     public boolean isDisponible() {
