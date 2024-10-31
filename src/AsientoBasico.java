@@ -1,7 +1,7 @@
 public class AsientoBasico extends Asiento {
 
-    public AsientoBasico(double costoBase) {
-        super(costoBase);
+    public AsientoBasico(int id, double costoBase) {
+        super(id, costoBase);
     }
 
     @Override

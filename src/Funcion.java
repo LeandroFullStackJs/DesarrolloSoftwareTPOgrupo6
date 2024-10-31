@@ -7,11 +7,10 @@ public class Funcion {
     private int hora;
     private Grupo grupo;
     private int duracion; // en minutos
-    //private Sala sala;
     private List<Asiento> asientosDisponibles;
 
     // Constructor
-    public Funcion(int id, String fecha, int hora,  Grupo grupo , int duracion) {
+    public Funcion(int id, String fecha, int hora, Grupo grupo, int duracion) {
         this.id = id;
         this.fecha = fecha;
         this.hora = hora;
@@ -24,14 +23,14 @@ public class Funcion {
     // Método para llenar los asientos disponibles
     private void cargarAsientos() {
         for (int i = 1; i <= 10; i++) {  // Ejemplo: 10 asientos por función
-            asientosDisponibles.add(new AsientoBasico(100.0)); // Example cost
+            asientosDisponibles.add(new AsientoBasico(i, 100.0)); // Example cost
         }
     }
 
     public double calcularCostoTotal() {
         return duracion * 10; // Simple fórmula, ajustar a conveniencia
     }
-    
+
     public List<Asiento> getAsientosDisponibles() {
         return asientosDisponibles;
     }

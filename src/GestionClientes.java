@@ -17,6 +17,11 @@ public class GestionClientes {
     }
 
     public boolean iniciarSesion(String email, String contraseña) {
+        if (clienteActual != null) {
+            System.out.println("Ya hay una sesión iniciada. Por favor, cierre la sesión actual antes de iniciar una nueva.");
+            return false;
+        }
+
         for (Cliente cliente : clientes) {
             if (cliente.getEmail().equals(email) && cliente.verificarContraseña(contraseña)) {
                 clienteActual = cliente;
@@ -33,7 +38,11 @@ public class GestionClientes {
     }
 
     public void cerrarSesion() {
-        clienteActual = null;
-        System.out.println("Sesión cerrada.");
+        if (clienteActual != null) {
+            System.out.println("Sesión cerrada para: " + clienteActual.getEmail());
+            clienteActual = null;
+        } else {
+            System.out.println("No hay ninguna sesión iniciada.");
+        }
     }
 }

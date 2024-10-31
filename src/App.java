@@ -11,17 +11,44 @@ public class App {
         CatalogoFunciones catalogoFunciones = CatalogoFunciones.getInstance();
         CatalogoGrupos catalogoGrupos = CatalogoGrupos.getInstance();
         Sala sala = new Sala(1, 100); // Ejemplo de sala
-        cargarAsientos(sala); // Cargar asientos en la sala
+
+        cargarEjemplos(catalogoFunciones, catalogoGrupos, sala);
         cargarMenu(catalogoFunciones, catalogoGrupos, sala);
+    }
+
+    public static void cargarEjemplos(CatalogoFunciones catalogoFunciones, CatalogoGrupos catalogoGrupos, Sala sala) {
+        // Cargar asientos en la sala
+        cargarAsientos(sala);
+
+        // Crear y agregar grupos de ejemplo
+        Grupo grupo1 = new Grupo(1, new ArrayList<>());
+        grupo1.agregarActor(new Actor("Protagonista", "Juan", "Perez", "Grupo 1"));
+        grupo1.agregarActor(new Actor("Antagonista", "Maria", "Gomez", "Grupo 1"));
+        catalogoGrupos.agregarGrupo(grupo1);
+
+        Grupo grupo2 = new Grupo(2, new ArrayList<>());
+        grupo2.agregarActor(new Actor("Protagonista", "Carlos", "Lopez", "Grupo 2"));
+        grupo2.agregarActor(new Actor("Antagonista", "Ana", "Martinez", "Grupo 2"));
+        catalogoGrupos.agregarGrupo(grupo2);
+
+        // Crear y agregar funciones de ejemplo
+        Funcion funcion1 = new Funcion(1, "2023-12-01", 20, grupo1, 120);
+        Funcion funcion2 = new Funcion(2, "2023-12-02", 18, grupo2, 90);
+        catalogoFunciones.agregarFuncion(funcion1);
+        catalogoFunciones.agregarFuncion(funcion2);
+
+        // Registrar clientes de ejemplo
+        gestionClientes.registrarCliente("cliente1@example.com", "password1");
+        gestionClientes.registrarCliente("cliente2@example.com", "password2");
     }
 
     public static void cargarAsientos(Sala sala) {
         // Cargar asientos de diferentes tipos en la sala
         for (int i = 0; i < 20; i++) {
-            sala.cargarAsiento(new Platea(new AsientoBasico(50)));
-            sala.cargarAsiento(new PalcoAlto(new AsientoBasico(40)));
-            sala.cargarAsiento(new Cazuela(new AsientoBasico(30)));
-            sala.cargarAsiento(new Paraiso(new AsientoBasico(20)));
+            sala.cargarAsiento(new Platea(new AsientoBasico(i, 50)));
+            sala.cargarAsiento(new PalcoAlto(new AsientoBasico(i + 20, 40)));
+            sala.cargarAsiento(new Cazuela(new AsientoBasico(i + 40, 30)));
+            sala.cargarAsiento(new Paraiso(new AsientoBasico(i + 60, 20)));
         }
     }
 
@@ -37,19 +64,11 @@ public class App {
             System.out.println("7. Salir");
             System.out.print("Seleccione una opción: ");
 
-          //  int opcion;
-
-            // Validamos que la entrada sea un número entero válido
-         /*    while (true) {
-                if (!scanner.hasNextInt()) {
-                    System.out.println("Entrada inválida. Por favor, intente de nuevo.");
-                    scanner.nextLine(); // Limpiar entrada inválida
-                } else {
-                    opcion = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar buffer
-                    break; // Salimos del bucle si la entrada es válida
-                }
-            } */
+            if (!scanner.hasNextInt()) {
+                System.out.println("Entrada inválida. Por favor, intente de nuevo.");
+                scanner.next(); // Limpiar entrada inválida
+                continue;
+            }
 
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer
@@ -199,7 +218,11 @@ public class App {
     }
 
     public static void registrarCliente() {
-       scanner.nextLine(); // Limpiar buffer
+        if (gestionClientes.getClienteActual() != null) {
+            System.out.println("No puede registrar un nuevo cliente mientras hay una sesión iniciada. Por favor, cierre la sesión actual.");
+            return;
+        }
+
         System.out.print("Ingrese su email: ");
         String email = scanner.nextLine();
         System.out.print("Ingrese su contraseña: ");
@@ -208,7 +231,11 @@ public class App {
     }
 
     public static void iniciarSesion() {
-        scanner.nextLine(); // Limpiar buffer
+        if (gestionClientes.getClienteActual() != null) {
+            System.out.println("Ya hay una sesión iniciada. Por favor, cierre la sesión actual antes de iniciar una nueva.");
+            return;
+        }
+
         System.out.print("Ingrese su email: ");
         String email = scanner.nextLine();
         System.out.print("Ingrese su contraseña: ");

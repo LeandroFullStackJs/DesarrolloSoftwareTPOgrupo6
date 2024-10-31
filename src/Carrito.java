@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Carrito {
     private List<Entrada> entradas;
+    private Pago estrategiaPago;
 
     public Carrito() {
         this.entradas = new ArrayList<>();
@@ -66,38 +67,19 @@ public class Carrito {
                     scanner.nextLine(); // Limpiar buffer
                     Asiento asientoDecorado = null;
 
-                    switch (tipoAsiento) {
-                        case 1:
-                            asientoDecorado = new Platea(new AsientoBasico(50));
-                            break;
-                        case 2:
-                            asientoDecorado = new PalcoAlto(new AsientoBasico(40));
-                            break;
-                        case 3:
-                            asientoDecorado = new Cazuela(new AsientoBasico(30));
-                            break;
-                        case 4:
-                            asientoDecorado = new Paraiso(new AsientoBasico(20));
-                            break;
-                        default:
-                            System.out.println("Opción inválida.");
-                            return;
-                    }
+                    System.out.println("Seleccione un asiento disponible:");
+                    List<Asiento> asientos = funcionSeleccionada.getAsientosDisponibles();
 
-                        System.out.println("Seleccione un asiento disponible:");
-                       // List<Asiento> asientos = funcionSeleccionada.getAsientosDisponibles();
-                       List<Asiento> asientos = funcionSeleccionada.getAsientosDisponibles();
-
-                       if (funcionSeleccionada.getAsientosDisponibles().isEmpty()) {
+                    if (asientos.isEmpty()) {
                         System.out.println("No hay asientos disponibles para esta función.");
-                        } else {
+                        continue;
+                    } else {
                         System.out.println("Asientos disponibles:");
-                        for (Asiento asiento : funcionSeleccionada.getAsientosDisponibles()) {
+                        for (Asiento asiento : asientos) {
                             System.out.println(asiento);
                         }
                     }
-                        
-   
+
                     if (!scanner.hasNextInt()) {
                         System.out.println("Entrada inválida. Por favor, intente de nuevo.");
                         scanner.next(); // Limpiar entrada inválida
@@ -109,8 +91,26 @@ public class Carrito {
                     Asiento asientoSeleccionado = asientos.get(numeroAsiento);
 
                     if (asientoSeleccionado != null) {
+                        switch (tipoAsiento) {
+                            case 1:
+                                asientoDecorado = new Platea(asientoSeleccionado);
+                                break;
+                            case 2:
+                                asientoDecorado = new PalcoAlto(asientoSeleccionado);
+                                break;
+                            case 3:
+                                asientoDecorado = new Cazuela(asientoSeleccionado);
+                                break;
+                            case 4:
+                                asientoDecorado = new Paraiso(asientoSeleccionado);
+                                break;
+                            default:
+                                System.out.println("Opción inválida.");
+                                return;
+                        }
+
                         funcionSeleccionada.reservarAsiento(asientoSeleccionado);
-                        agregarEntrada(funcionSeleccionada, asientoSeleccionado);
+                        agregarEntrada(funcionSeleccionada, asientoDecorado);
                         System.out.println("Entrada agregada al carrito.");
                     } else {
                         System.out.println("No se pudo comprar la entrada. Intente nuevamente.");
@@ -176,14 +176,16 @@ public class Carrito {
 
         int metodoPago = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
-        Pago estrategiaPago = null;
+        String medioDePago = "";
 
         switch (metodoPago) {
             case 1:
                 estrategiaPago = new Efectivo();
+                medioDePago = "Efectivo";
                 break;
             case 2:
                 estrategiaPago = new Debito();
+                medioDePago = "Débito";
                 break;
             case 3:
                 System.out.println("Ingrese cantidad de cuotas (2, 3, 6): ");
@@ -195,6 +197,7 @@ public class Carrito {
                 int cuotas = scanner.nextInt();
                 scanner.nextLine(); // Limpiar buffer
                 estrategiaPago = new Credito(cuotas);
+                medioDePago = "Crédito en " + cuotas + " cuotas";
                 break;
             default:
                 System.out.println("Opción de pago inválida.");
@@ -206,6 +209,11 @@ public class Carrito {
 
         System.out.println("Total a pagar: $" + totalConDescuento);
         System.out.println("Pago realizado con éxito. ¡Gracias por su compra!");
+
+        // Generar el ticket
+        Ticket ticket = new Ticket(cliente, entradas, totalConDescuento, medioDePago);
+        System.out.println("Ticket generado con éxito. Aquí están los detalles de su compra:");
+        System.out.println(ticket);
 
         vaciarCarrito();
     }
