@@ -45,7 +45,7 @@ public class Funcion {
     }
 
     public double calcularCostoTotal() {
-        return duracion * 2; // Ejemplo: 2 unidades monetarias por minuto de duración
+        return duracion * 2; // Ejemplo: 2 dolares por minuto de duración
     }
 
     public List<Asiento> getAsientosDisponibles(String tipo) {

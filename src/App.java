@@ -186,7 +186,7 @@ public class App {
         scanner.nextLine(); // Limpiar buffer
 
         List<Actor> actores = new ArrayList<>();
-        Grupo grupo = new Grupo(idGrupo, actores); // Define grupo before using it
+        Grupo grupo = new Grupo(idGrupo, actores); 
 
         while (true) {
             System.out.print("Ingrese el nombre del actor (o 'fin' para terminar): ");
