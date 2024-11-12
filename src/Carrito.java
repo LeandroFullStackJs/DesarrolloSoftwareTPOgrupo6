@@ -134,7 +134,7 @@ public class Carrito {
                         // Marcar el asiento como no disponible inmediatamente
                         funcionSeleccionada.reservarAsiento(asientoSeleccionado);
 
-                        System.out.println("¿Desea aplicar un decorador? (1. Sí / 2. No)");
+                        System.out.println("¿Desea aplicar una Oferta/TratoVIP? (1. Sí / 2. No)");
                         int aplicarDecorador = -1;
                         while (aplicarDecorador != 1 && aplicarDecorador != 2) {
                             if (!scanner.hasNextInt()) {
@@ -147,7 +147,7 @@ public class Carrito {
                         }
 
                         if (aplicarDecorador == 1) {
-                            System.out.println("Seleccione un decorador:");
+                            System.out.println("Seleccione una opcion:");
                             System.out.println("1. Oferta\n2. VIP");
 
                             int tipoDecorador = -1;
@@ -166,7 +166,7 @@ public class Carrito {
                                     asientoSeleccionado = new AsientoDescuento(asientoSeleccionado);
                                     break;
                                 case 2:
-                                    asientoSeleccionado = new AsientoVIP(asientoSeleccionado);
+                                    asientoSeleccionado = new TratoVIP(asientoSeleccionado);
                                     break;
                                 default:
                                     System.out.println("Opción inválida.");

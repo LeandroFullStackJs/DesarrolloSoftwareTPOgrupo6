@@ -1,7 +1,7 @@
-public class AsientoVIP extends AsientoDecorator {
+public class TratoVIP extends AsientoDecorator {
     private static final double PORCENTAJE_EXTRA = 0.15; // 15% extra
 
-    public AsientoVIP(Asiento asiento) {
+    public TratoVIP(Asiento asiento) {
         super(asiento);
     }
 
