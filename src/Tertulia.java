@@ -1,12 +1,12 @@
-public class Tertulia extends AsientoDecorator {
+public class Tertulia extends Asiento {
     private double porcentajeExtra = 0.03; // 3% extra
 
-    public Tertulia(Asiento asiento) {
-        super(asiento);
+    public Tertulia(int id, double costoBase) {
+        super(id, costoBase);
     }
 
     @Override
     public double obtenerCosto() {
-        return super.obtenerCosto() * (1 + porcentajeExtra);
+        return costoBase * (1 + porcentajeExtra);
     }
 }

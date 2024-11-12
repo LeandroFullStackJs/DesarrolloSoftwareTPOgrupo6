@@ -1,4 +1,4 @@
-public class AsientoBasico extends Asiento {
+/*public class AsientoBasico extends Asiento {
 
     public AsientoBasico(int id, double costoBase) {
         super(id, costoBase);
@@ -8,4 +8,4 @@ public class AsientoBasico extends Asiento {
     public double obtenerCosto() {
         return costoBase;
     }
-}
+}*/

@@ -7,6 +7,22 @@ public class Entrada {
         this.asiento = asiento;
     }
 
+    public Funcion getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
+    }
+
+    public Asiento getAsiento() {
+        return asiento;
+    }
+
+    public void setAsiento(Asiento asiento) {
+        this.asiento = asiento;
+    }
+
     public double getCosto() {
         return funcion.calcularCostoTotal() + asiento.obtenerCosto();
     }

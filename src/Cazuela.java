@@ -1,12 +1,12 @@
-public class Cazuela extends AsientoDecorator {
+public class Cazuela extends Asiento {
     private double porcentajeExtra = 0.05; // 5% extra
 
-    public Cazuela(Asiento asiento) {
-        super(asiento);
+    public Cazuela(int id, double costoBase) {
+        super(id, costoBase);
     }
 
     @Override
     public double obtenerCosto() {
-        return super.obtenerCosto() * (1 + porcentajeExtra);
+        return costoBase * (1 + porcentajeExtra);
     }
 }

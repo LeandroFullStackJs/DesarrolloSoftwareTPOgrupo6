@@ -1,12 +1,12 @@
-public class PalcoAlto extends AsientoDecorator {
+public class PalcoAlto extends Asiento {
     private double porcentajeExtra = 0.15; // 15% extra
 
-    public PalcoAlto(Asiento asiento) {
-        super(asiento);
+    public PalcoAlto(int id, double costoBase) {
+        super(id, costoBase);
     }
 
     @Override
     public double obtenerCosto() {
-        return super.obtenerCosto() * (1 + porcentajeExtra);
+        return costoBase * (1 + porcentajeExtra);
     }
 }
